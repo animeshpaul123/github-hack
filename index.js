@@ -15,14 +15,14 @@ jsonfile.writeFile(FILE_PATH, data)
 const repo = 'github-hack';  //Repo name
 // User name and password of your GitHub
 const userName = 'animeshpaul123';
-const password = 'animesH@123';
+const password = 'animesH!animesH';
 // Set up GitHub url like this so no manual entry of user pass needed
 const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo}.git`;
 // add local git config like username and email
 simpleGit.addConfig('user.email', 'animeshpaul333@gmail.com');
 simpleGit.addConfig('user.name', 'Animesh Paul');
 // Add remore repo url as origin to repo
-// simpleGitPromise.addRemote('origin-new', gitHubUrl);
+simpleGitPromise.addRemote('origin-main', gitHubUrl);
 // Add all files for commit
 simpleGitPromise.add('.')
     .then(
