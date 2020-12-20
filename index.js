@@ -22,7 +22,7 @@ const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo
 simpleGit.addConfig('user.email', 'animeshpaul333@gmail.com');
 simpleGit.addConfig('user.name', 'Animesh Paul');
 // Add remore repo url as origin to repo
-simpleGitPromise.addRemote('origin-new', gitHubUrl);
+// simpleGitPromise.addRemote('origin-new', gitHubUrl);
 // Add all files for commit
 simpleGitPromise.add('.')
     .then(
@@ -36,7 +36,7 @@ simpleGitPromise.add('.')
                             .then((success) => {
                                 console.log('repo successfully pushed');
                             }, (failed) => {
-                                console.log('repo push failed');
+                                console.log('repo push failed', failed);
                             });
                     }, (failed) => {
                         console.log('failed commmit');
