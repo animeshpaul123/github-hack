@@ -17,12 +17,12 @@ const repo = 'github-hack';  //Repo name
 const userName = 'animeshpaul123';
 const password = 'animesH@123';
 // Set up GitHub url like this so no manual entry of user pass needed
-const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo} `;
+const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo}.git`;
 // add local git config like username and email
 simpleGit.addConfig('user.email', 'animeshpaul333@gmail.com');
 simpleGit.addConfig('user.name', 'Animesh Paul');
 // Add remore repo url as origin to repo
-// simpleGitPromise.addRemote('origin-n', gitHubUrl);
+simpleGitPromise.addRemote('origin-new', gitHubUrl);
 // Add all files for commit
 simpleGitPromise.add('.')
     .then(
@@ -32,7 +32,7 @@ simpleGitPromise.add('.')
                 .then(
                     (successCommit) => {
                         console.log(successCommit);
-                        simpleGitPromise.push('origin', 'master')
+                        simpleGitPromise.push('origin-new', 'master')
                             .then((success) => {
                                 console.log('repo successfully pushed');
                             }, (failed) => {
