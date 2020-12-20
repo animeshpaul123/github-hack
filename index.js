@@ -2,7 +2,7 @@ const jsonfile = require('jsonfile')
 const moment = require('moment')
 const FILE_PATH = './data.json'
 const simpleGit = require('simple-git')();
-
+const random = require('random')
 const simpleGitPromise = require('simple-git/promise')();
 
 // Repo name
@@ -16,49 +16,40 @@ const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo
 simpleGit.addConfig('user.email', 'animeshpaul333@gmail.com');
 simpleGit.addConfig('user.name', 'Animesh Paul');
 
-const makeCommit = (x, y) => {
-    const DATE = moment().subtract(1, 'y').add(1, 'd')
+const makeCommit = (n) => {
+    const x = random.int(0, 54)
+    const y = random.int(0, 6)
+    const DATE = moment().subtract(1, 'year').add(1, 'day')
         .add(x, 'w').add(y, 'd').format()
     const data = {
         date: DATE
     }
+    console.log(DATE)
     jsonfile.writeFile(FILE_PATH, data, () => {
-        simpleGitPromise.add('.')
-            .then(
-                (addSuccess) => {
-                    console.log(addSuccess);
-                    simpleGitPromise.commit(DATE, { '--date': DATE })
-                        .then(
-                            (successCommit) => {
-                                console.log(successCommit);
-                                simpleGitPromise.push('origin-main', 'master')
-                                    .then((success) => {
-                                        console.log('repo successfully pushed');
-                                    }, (failed) => {
-                                        console.log('repo push failed', failed);
-                                    });
-                            }, (failed) => {
-                                console.log('failed commmit');
-                            });
-                }, (failedAdd) => {
-                    console.log('adding files failed');
-                });
+        if (n === 0) return simpleGit.push('origin-main', 'master', () => {
+            console.log("repo pushed")
+        })
+        simpleGit.add([FILE_PATH]).commit(DATE, { '--date': DATE }, makeCommit.bind(this, --n))
+        // simpleGitPromise.add('.')
+        //     .then(
+        //         (addSuccess) => {
+        //             console.log(addSuccess);
+        //             simpleGitPromise.commit(DATE, { '--date': DATE })
+        //                 .then(
+        //                     (successCommit) => {
+        //                         console.log(successCommit);
+        //                         simpleGitPromise.push('origin-main', 'master')
+        //                             .then((success) => {
+        //                                 console.log('repo successfully pushed');
+        //                             }, (failed) => {
+        //                                 console.log('repo push failed', failed);
+        //                             });
+        //                     }, (failed) => {
+        //                         console.log('failed commmit');
+        //                     });
+        //         }, (failedAdd) => {
+        //             console.log('adding files failed');
+        //         });
     })
 }
-makeCommit(3, 3)
-// Add remore repo url as origin to repo
-// simpleGitPromise.addRemote('origin-main', gitHubUrl);
-
-
-// simpleGit().add(FILE_PATH).commit(DATE, { '--date': DATE })
-
-const execute = () => {
-    // Add all files for commit
-
-    // Commit files as Initial Commit
-
-    // Finally push to online repository
-}
-// jsonfile.writeFile(FILE_PATH, data, () => {
-//     execute()
-// })
+makeCommit(100)
