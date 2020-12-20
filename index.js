@@ -32,7 +32,7 @@ simpleGitPromise.add('.')
                 .then(
                     (successCommit) => {
                         console.log(successCommit);
-                        simpleGitPromise.push('origin-n', 'master')
+                        simpleGitPromise.push('origin', 'master')
                             .then((success) => {
                                 console.log('repo successfully pushed');
                             }, (failed) => {
